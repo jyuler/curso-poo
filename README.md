@@ -1,2 +1,3 @@
-# curso-poo
-Ejercicios del curso de programación orientada a objetos
+# Ejercicios del curso de Programación Orientada a Objetos
+
+Clases y Objetos
