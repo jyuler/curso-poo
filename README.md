@@ -9,8 +9,12 @@ title: Gestión de préstamos de libros en una biblioteca
 ---
 classDiagram
 	class Biblioteca {
-		determinarNumeroDiasPrestamo( Socio socio )
-		determinarNumeroMaxLibrosPrestamo( Socio socio )
+		iniciarBiblioteca()
+		mostrarLibros()
+		mostrarSocios()
+		mostrarPrestamos()
+		numeroMaximoLibrosPrestamo(Socio)
+		numeroDiasPrestamo(Socio)
 	}
 	class Libro {
 		String título
@@ -19,7 +23,7 @@ classDiagram
 		boolean actualmentePrestado
 	}
 	class Prestamo {
-		LocalDate fecha
+		String fecha
 		int diasPrestamo
 	}
 	class Bibliotecario {
@@ -30,7 +34,7 @@ classDiagram
 	}
 	class Socio {
 		String nombre
-		LocalDate fechaAfiliacion
+		String fechaAfiliacion
 		solicitarPrestamo( Libro libro )
 	}
 	Biblioteca "1" *-- "1..n" Bibliotecario
