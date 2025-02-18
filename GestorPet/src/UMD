@@ -1,0 +1,19 @@
++------------+              +------------+        +------------+
+| Producto   |              | Cliente    |        | Venta      |
++------------+              +------------+        +------------+
+| - nombre   |              | - nombre   |        | - cliente  |
+| - precio   |              | - direccion|        | - producto |
+| - descripcion |           | - celular  |        | - cantidad |
+| - tipoAnimal  |           | - email    |        +------------+
++------------+              +------------+        | + getCliente() |
+| + getNombre()  |          | + getNombre()  |    | + getProducto() |
+| + getPrecio()  |          | + getDireccion()|   | + getCantidad() |
+| + getDescripcion()|       | + getCelular() |    | + setCantidad() |
+| + getTipoAnimal()|        | + getEmail()   |    | + mostrarInfoVenta() |
+| + setPrecio()   |         | + setDireccion() |  
+| + setDescripcion()|       | + setCelular() |
+| + mostrarInfoProducto() | | + setEmail() |
+                            | + mostrarInfoCliente()
++------------+               +------------+               +------------+
+
+    Producto  ---->  Venta  <----  Cliente
