@@ -1,5 +1,5 @@
+import co.edu.ean.poo.ventas.Vendedor;
 import co.edu.ean.poo.ventas.datos.Datos;
-import co.edu.ean.poo.ventas.datos.Vendedor;
 
 public class App {
     public static void main(String[] args) throws Exception {
@@ -13,7 +13,5 @@ public class App {
             String fecha = campos[3];
             Vendedor v = new Vendedor(nv, nombre, apellido, fecha);
         }
-
     }
-
 }

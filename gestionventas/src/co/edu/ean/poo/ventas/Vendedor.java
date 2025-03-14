@@ -1,4 +1,4 @@
-package co.edu.ean.poo.ventas.datos;
+package co.edu.ean.poo.ventas;
 
 public class Vendedor {
     private int numeroVendedor;
@@ -29,5 +29,8 @@ public class Vendedor {
         return fechaIngreso;
     }
 
-    
+    @Override
+    public String toString() {
+        return String.format("Vendedor[%02d:%s %s:%s]", numeroVendedor, nombre, apellido, fechaIngreso);
+    }
 }
