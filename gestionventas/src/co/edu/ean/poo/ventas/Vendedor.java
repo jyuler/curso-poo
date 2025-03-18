@@ -47,7 +47,17 @@ public class Vendedor {
     public ListaVentas getVentas() {
         return ventas;
     }
-    
+
+    public int totalVentas( LocalDate fechaInicio, LocalDate fechaFin ) {
+        int totalVentas = 0;
+        for (int i = 0; i < ventas.cantidadVentas(); i++) {
+            Venta venta = ventas.getVenta(i);
+            if (venta.getFecha().compareTo(fechaInicio) >= 0 && venta.getFecha().compareTo(fechaFin) <= 0) 
+                totalVentas += venta.getValor();
+        }
+        return totalVentas;
+    }
+
     @Override
     public String toString() {
         return String.format("Vendedor[%02d:%s %s:%s]", numeroVendedor, nombre, apellido, fechaIngreso);
