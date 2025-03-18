@@ -13,10 +13,11 @@ public class App {
         LocalDate fechaInicio = LocalDate.of(2024, 7, 1);
         LocalDate fechaFin = LocalDate.of(2024, 7, 31);
         
-        System.out.printf("Total ventas todos los vendedores: %,d\n\n", totalVentasVendedores(fechaInicio, fechaFin, arrVendedores));
+        System.out.printf("Total ventas todos los vendedores: %,d\n", totalVentasVendedores(fechaInicio, fechaFin, arrVendedores));
+        System.out.printf("Total comisiones todos los vendedores: %,d\n\n", totalComisionesVendedores(fechaInicio, fechaFin, arrVendedores));
 
         for (Vendedor v : topNVendedores(3, fechaInicio, fechaFin, arrVendedores))
-            System.out.printf("%02d %s %s: %,d\n", v.getNumeroVendedor(), v.getNombre(), v.getApellido(), v.totalVentas(fechaInicio, fechaFin));
+            System.out.printf("%02d %s %s. ventas:%,d comisiones:%,d\n", v.getNumeroVendedor(), v.getNombre(), v.getApellido(), v.totalVentas(fechaInicio, fechaFin), v.calcularComision(fechaInicio, fechaFin));
     }
 
     public static int totalVentasVendedores( LocalDate fechaInicio, LocalDate fechaFin, Vendedor[] vendedores ) {
@@ -25,6 +26,14 @@ public class App {
             totalVentas += v.totalVentas(fechaInicio, fechaFin);
         }
         return totalVentas;
+    }
+
+    public static int totalComisionesVendedores( LocalDate fechaInicio, LocalDate fechaFin, Vendedor[] vendedores ) {
+        int totalComisiones = 0;
+        for (Vendedor v : vendedores) {
+            totalComisiones += v.calcularComision(fechaInicio, fechaFin);
+        }
+        return totalComisiones;
     }
 
     // devuelve el top N de vendedores con mayor valor en ventas en el rango de fechas
