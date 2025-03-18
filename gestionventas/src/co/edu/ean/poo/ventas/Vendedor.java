@@ -1,9 +1,8 @@
 package co.edu.ean.poo.ventas;
 
 import java.time.LocalDate;
-import java.time.Period;
 
-import co.edu.ean.poo.festivos.FestivosColombia;
+import co.edu.ean.poo.comisiones.CalculadoraComisiones;
 
 public class Vendedor {
     private int numeroVendedor;
@@ -62,20 +61,11 @@ public class Vendedor {
     }
 
     public int calcularComision( LocalDate fechaInicio, LocalDate fechaFin ) {
-        FestivosColombia fc = new FestivosColombia();
         float comision = 0;
         for (int i = 0; i < ventas.cantidadVentas(); i++) {
             Venta venta = ventas.getVenta(i);
-            if ( venta.getFecha().isBefore(fechaInicio) || venta.getFecha().isAfter(fechaFin) ) continue;
-            Period p = fechaIngreso.until(venta.getFecha());
-            if ( p.getYears() > 0 )
-                comision += venta.getValor() * 0.03;
-            else if ( p.getMonths() >= 6 )
-                comision += venta.getValor() * 0.025;
-            else
-                comision += venta.getValor() * 0.02;
-            if ( venta.getFecha().getDayOfWeek().getValue() == 7 || fc.esFestivo(venta.getFecha()) )
-                comision += venta.getValor() * 0.005;
+            if (venta.getFecha().isBefore(fechaInicio) || venta.getFecha().isAfter(fechaFin) ) continue;    
+            comision += CalculadoraComisiones.calcularComision(fechaIngreso, venta.getFecha(), venta.getValor() ).comision();
         }
         return Math.round(comision);
     }

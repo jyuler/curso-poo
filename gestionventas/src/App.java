@@ -1,4 +1,5 @@
 import java.time.LocalDate;
+import java.util.Arrays;
 
 import co.edu.ean.poo.ventas.Vendedor;
 import co.edu.ean.poo.ventas.datos.Datos;
@@ -10,18 +11,15 @@ public class App {
         String ventas = Datos.getDatosVentas();
         Vendedor[] arrVendedores = ParseadorDatos.parse(vendedores, ventas);
         
-        LocalDate fechaInicio = LocalDate.of(2024, 7, 1);
-        LocalDate fechaFin = LocalDate.of(2024, 7, 31);
+        LocalDate fechaInicio = LocalDate.of(2024, 10, 1);
+        LocalDate fechaFin = LocalDate.of(2024, 12, 31);
         
-        System.out.printf("Total ventas todos los vendedores: %,d\n", totalVentasVendedores(fechaInicio, fechaFin, arrVendedores));
-        System.out.printf("Total comisiones todos los vendedores: %,d\n\n", totalComisionesVendedores(fechaInicio, fechaFin, arrVendedores));
-
-        for (Vendedor v : topNVendedores(3, fechaInicio, fechaFin, arrVendedores))
-            System.out.printf("%02d %s %s. ventas:%,d comisiones:%,d\n", v.getNumeroVendedor(), v.getNombre(), v.getApellido(), v.totalVentas(fechaInicio, fechaFin), v.calcularComision(fechaInicio, fechaFin));
+        System.out.println("Total ventas: " + totalVentasVendedores(fechaInicio, fechaFin, arrVendedores));
+        System.out.println("Total comisiones: " + totalComisionesVendedores(fechaInicio, fechaFin, arrVendedores));
     }
 
-    public static int totalVentasVendedores( LocalDate fechaInicio, LocalDate fechaFin, Vendedor[] vendedores ) {
-        int totalVentas = 0;
+    public static long totalVentasVendedores( LocalDate fechaInicio, LocalDate fechaFin, Vendedor[] vendedores ) {
+        long totalVentas = 0;
         for (Vendedor v : vendedores) {
             totalVentas += v.totalVentas(fechaInicio, fechaFin);
         }

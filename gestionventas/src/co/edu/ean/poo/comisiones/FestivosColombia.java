@@ -1,11 +1,19 @@
-package co.edu.ean.poo.festivos;
+package co.edu.ean.poo.comisiones;
+
 import java.time.LocalDate;
 
+/**
+ * La clase FestivosColombia contiene los días festivos en Colombia
+ * para los años 2024 y 2025.
+ */
 public class FestivosColombia {
-    LocalDate[] festivos = new LocalDate[35]; // 18 festivos por año * 2 años
+    private LocalDate[] festivos = new LocalDate[35]; // 18 festivos por año * 2 años
 
+    /**
+     * Constructor que inicializa el arreglo de festivos con las fechas correspondientes
+     * a los años 2024 y 2025.
+     */
     public FestivosColombia() {
-
         // Festivos 2024
         festivos[0] = LocalDate.of(2024, 1, 1);   // Año Nuevo
         festivos[1] = LocalDate.of(2024, 1, 8);   // Día de los Reyes Magos (Traslado)
@@ -33,7 +41,7 @@ public class FestivosColombia {
         festivos[21] = LocalDate.of(2025, 4, 17);  // Jueves Santo
         festivos[22] = LocalDate.of(2025, 4, 18);  // Viernes Santo
         festivos[23] = LocalDate.of(2025, 5, 1);   // Día del Trabajo
-        festivos[24] = LocalDate.of(2025, 6, 2);  // Día de la Ascensión (Traslado)
+        festivos[24] = LocalDate.of(2025, 6, 2);   // Día de la Ascensión (Traslado)
         festivos[25] = LocalDate.of(2025, 6, 23);  // Sagrado Corazón (Traslado)
         festivos[26] = LocalDate.of(2025, 6, 30);  // San Pedro y San Pablo (Traslado)
         festivos[27] = LocalDate.of(2025, 7, 20);  // Día de la Independencia
@@ -44,9 +52,14 @@ public class FestivosColombia {
         festivos[32] = LocalDate.of(2025, 11, 17); // Independencia de Cartagena (Traslado)
         festivos[33] = LocalDate.of(2025, 12, 8);  // Día de la Inmaculada Concepción
         festivos[34] = LocalDate.of(2025, 12, 25); // Navidad
-
     }
 
+    /**
+     * Verifica si una fecha dada corresponde a un día festivo
+     * 
+     * @param fecha La fecha a verificar.
+     * @return true si la fecha es un día festivo, false en caso contrario.
+     */
     public boolean esFestivo(LocalDate fecha) {
         for (LocalDate f : festivos) {
             if (f != null && f.equals(fecha)) {
@@ -55,5 +68,4 @@ public class FestivosColombia {
         }
         return false;
     }
-
 }
