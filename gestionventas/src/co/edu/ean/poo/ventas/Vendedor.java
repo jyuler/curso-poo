@@ -5,6 +5,8 @@ public class Vendedor {
     private String nombre;
     private String apellido;
     private String fechaIngreso;
+    private Venta[] ventas = new Venta[50];
+    private int posVenta = 0;
 
     public Vendedor(int nv, String nm, String ap, String f ) {
         numeroVendedor = nv;
@@ -29,6 +31,18 @@ public class Vendedor {
         return fechaIngreso;
     }
 
+    public void registrarVenta(Venta venta) {
+        ventas[ posVenta++ ] = venta;
+    }
+
+    public void registrarVenta(String fechaVenta, int valor) {
+        registrarVenta( new Venta(fechaVenta, valor) );
+    }
+
+    public Venta[] getVentas() {
+        return ventas;
+    }
+    
     @Override
     public String toString() {
         return String.format("Vendedor[%02d:%s %s:%s]", numeroVendedor, nombre, apellido, fechaIngreso);
