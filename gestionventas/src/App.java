@@ -1,3 +1,6 @@
+import java.time.LocalDate;
+
+import co.edu.ean.poo.ventas.ListaVentas;
 import co.edu.ean.poo.ventas.Vendedor;
 import co.edu.ean.poo.ventas.datos.Datos;
 import co.edu.ean.poo.ventas.datos.ParseadorDatos;
@@ -7,6 +10,7 @@ public class App {
         String vendedores = Datos.getDatosVendedores();
         String ventas = Datos.getDatosVentas();
         Vendedor[] arrVendedores = ParseadorDatos.parse(vendedores, ventas);
-        System.out.println( arrVendedores[0].getVentas()[0]);
+        
+        System.out.println(arrVendedores[0].getVentas().getVenta(0));
     }
 }

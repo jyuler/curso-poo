@@ -5,8 +5,7 @@ public class Vendedor {
     private String nombre;
     private String apellido;
     private String fechaIngreso;
-    private Venta[] ventas = new Venta[50];
-    private int posVenta = 0;
+    private ListaVentas ventas = new ListaVentas(10);
 
     public Vendedor(int nv, String nm, String ap, String f ) {
         numeroVendedor = nv;
@@ -32,14 +31,14 @@ public class Vendedor {
     }
 
     public void registrarVenta(Venta venta) {
-        ventas[ posVenta++ ] = venta;
+        ventas.agregarVenta(venta);
     }
 
     public void registrarVenta(String fechaVenta, int valor) {
         registrarVenta( new Venta(fechaVenta, valor) );
     }
 
-    public Venta[] getVentas() {
+    public ListaVentas getVentas() {
         return ventas;
     }
     
