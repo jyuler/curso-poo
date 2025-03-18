@@ -1,5 +1,7 @@
 package co.edu.ean.poo.ventas.datos;
 
+import java.time.LocalDate;
+
 import co.edu.ean.poo.ventas.Vendedor;
 
 public class ParseadorDatos {
@@ -12,7 +14,7 @@ public class ParseadorDatos {
             int nv = Integer.parseInt( campos[0] );
             String nombre = campos[1];
             String apellido = campos[2];
-            String fecha = campos[3];
+            LocalDate fecha = LocalDate.parse( campos[3] );
             arrVendedores[ posv++ ] = new Vendedor(nv, nombre, apellido, fecha);
         }
 
@@ -22,7 +24,7 @@ public class ParseadorDatos {
             int nv = Integer.parseInt( campos[0] );
             Vendedor v = buscaVendedor(nv, arrVendedores);
             if ( v != null ) {
-                String fechaVenta = campos[1];
+                LocalDate fechaVenta = LocalDate.parse( campos[1] );
                 int valor = Integer.parseInt( campos[2] );
                 v.registrarVenta(fechaVenta, valor);
             }

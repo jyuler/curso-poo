@@ -1,13 +1,15 @@
 package co.edu.ean.poo.ventas;
 
+import java.time.LocalDate;
+
 public class Vendedor {
     private int numeroVendedor;
     private String nombre;
     private String apellido;
-    private String fechaIngreso;
+    private LocalDate fechaIngreso;
     private ListaVentas ventas = new ListaVentas(10);
 
-    public Vendedor(int nv, String nm, String ap, String f ) {
+    public Vendedor(int nv, String nm, String ap, LocalDate f ) {
         numeroVendedor = nv;
         nombre = nm;
         apellido = ap;
@@ -26,15 +28,19 @@ public class Vendedor {
         return apellido;
     }
 
-    public String getFechaIngreso() {
+    public LocalDate getFechaIngreso() {
         return fechaIngreso;
     }
 
-    public void registrarVenta(Venta venta) {
-        ventas.agregarVenta(venta);
+    public boolean registrarVenta(Venta venta) {
+        if ( ! venta.getFecha().isBefore(fechaIngreso)) {
+            ventas.agregarVenta(venta);
+            return true;
+        }
+        return false;
     }
 
-    public void registrarVenta(String fechaVenta, int valor) {
+    public void registrarVenta(LocalDate fechaVenta, int valor) {
         registrarVenta( new Venta(fechaVenta, valor) );
     }
 

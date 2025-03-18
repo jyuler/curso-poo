@@ -1,13 +1,15 @@
 package co.edu.ean.poo.ventas;
 
+import java.time.LocalDate;
+
 public class Venta {
-    private String fecha;
+    private LocalDate fecha;
     private int valor;
-    public Venta(String f, int v) {
+    public Venta(LocalDate f, int v) {
         fecha = f;
         valor = v;
     }
-    public String getFecha() {
+    public LocalDate getFecha() {
         return fecha;
     }
     public int getValor() {

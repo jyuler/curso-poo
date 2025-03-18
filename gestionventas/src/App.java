@@ -1,6 +1,3 @@
-import java.time.LocalDate;
-
-import co.edu.ean.poo.ventas.ListaVentas;
 import co.edu.ean.poo.ventas.Vendedor;
 import co.edu.ean.poo.ventas.datos.Datos;
 import co.edu.ean.poo.ventas.datos.ParseadorDatos;
