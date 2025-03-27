@@ -11,11 +11,11 @@ public class Venta {
         this.valorVenta = valorVenta;
     }
 
-    public LocalDate getFechaVenta() {
+    public LocalDate fecha() {
         return fechaVenta;
     }
 
-    public int getValorVenta() {
+    public int valor() {
         return valorVenta;
     }
 
@@ -23,6 +23,4 @@ public class Venta {
     public String toString() {
         return String.format("Venta[F:%s, V:%,d]", fechaVenta, valorVenta);
     }
-
-    
 }

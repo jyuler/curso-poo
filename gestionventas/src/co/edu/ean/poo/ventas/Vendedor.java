@@ -7,7 +7,7 @@ public class Vendedor {
     private String nombre;
     private String apellido;
     private LocalDate fechaIngreso;
-    private Venta[] ventas = new Venta[ 50 ];
+    private Venta[] ventas = new Venta[50];
 
     public Vendedor(int nv, String nm, String ap, LocalDate f ) {
         numeroVendedor = nv;
@@ -32,22 +32,31 @@ public class Vendedor {
         return fechaIngreso;
     }
 
-    public Venta getVenta(int i) {
-        return ventas[i];
-    }
-
-    public void borrarVenta(int i) {
-        ventas[i] = null;
-    }
-
-    public void agregarVenta(Venta v) {
-        if ( v.getFechaVenta().isBefore( fechaIngreso ) ) return;
+    /**
+     * intenta registrar la venta para el vendedor actual
+     * Si la venta tiene fecha anterior a la fecha de ingreso del vendedor entonces
+     * no debe registrarse puesto que es una inconsistencia
+     * 
+     * @param v Venta a registrar
+     * @return true si la venta fue registrada, en caso contrario false
+     */
+    public boolean registrarVenta(Venta v) {
+        if ( v.fecha().isBefore( fechaIngreso ) ) return false;
         for (int i = 0; i < ventas.length; i++) {
             if ( ventas[i] == null ) {
                 ventas[i] = v;
                 break;
             }
         }
+        return true;
+    }
+
+    public void registrarVenta(LocalDate fechaVenta, int valor) {
+        registrarVenta( new Venta(fechaVenta, valor) );
+    }
+
+    public Venta[] getVentas() {
+        return ventas;
     }
 
     @Override
