@@ -7,3 +7,6 @@ En este repositorio iré subiendo los ejercicios trabajados en clase
 
 - [Piedra, papel y tijera](piedrapapeltijera)
 	Ejercicio para demostrar las bondades de la abstracción y el polimorfismo
+
+- [Ventas y Vendedores](gestionventas)
+	Ejercicio para mostrar como funcionan las estructuras de control `for`, `if`, etc. Además muestra el uso de fechas
