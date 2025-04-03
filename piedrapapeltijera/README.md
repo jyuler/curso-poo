@@ -1,18 +1,37 @@
-## Getting Started
+## Piedra, Papel y Tijera
 
-Welcome to the VS Code Java world. Here is a guideline to help you get started to write Java code in Visual Studio Code.
+Este proyecto muestra las ventajas de usar la abstracción y el polimorfismo 
+aplicado a un juego de Piedra, Papel y Tijera
 
-## Folder Structure
-
-The workspace contains two folders by default, where:
-
-- `src`: the folder to maintain sources
-- `lib`: the folder to maintain dependencies
-
-Meanwhile, the compiled output files will be generated in the `bin` folder by default.
-
-> If you want to customize the folder structure, open `.vscode/settings.json` and update the related settings there.
-
-## Dependency Management
-
-The `JAVA PROJECTS` view allows you to manage your dependencies. More details can be found [here](https://github.com/microsoft/vscode-java-dependency#manage-dependencies).
+```mermaid
+---
+config:
+    class:
+      hideEmptyMembersBox: true
+    title: Juego Piedra, Papel y Tijera
+---
+classDiagram
+    %%direction LR
+    class Movimiento {
+        <<enumeration>>
+        + Piedra
+        + Papel
+        + Tijera
+    }
+    class Jugador {
+        <<abstract>>
+        + nombre() : String
+        + siguienteMovimiento() : Movimiento
+    }
+    class JuegoPiedraPapelTijera {
+        + jugar(Jugador, Jugador, int rondas)
+    }
+    App --> JuegoPiedraPapelTijera
+    App --> Jugador
+    JuegoPiedraPapelTijera --> Jugador
+    Movimiento <-- Jugador
+    Jugador <|.. JugadorRepetido
+    Jugador <|.. JugadorSecuencial
+    Jugador  <|.. JugadorAleatorio
+    Jugador <|.. JugadorHumano
+```
