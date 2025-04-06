@@ -21,15 +21,11 @@ public class App {
         ));
 
         // 2. total de ventas que el vendedor 11 tuvo en el mes de septiembre de 2024
-        try {
-            System.out.println( CalculadoraVentas.totalVentasVendedor(
-                buscarVendedor(arrVendedores, 11), 
-                LocalDate.of(2024, Month.SEPTEMBER, 1), 
-                LocalDate.of(2024, Month.SEPTEMBER, 30) 
-            ));
-        } catch (IllegalArgumentException e) {
-            System.out.println("El vendedor 11 no existe");
-        }
+        System.out.println( CalculadoraVentas.totalVentasVendedor(
+            buscarVendedor(arrVendedores, 11), 
+            LocalDate.of(2024, Month.SEPTEMBER, 1), 
+            LocalDate.of(2024, Month.SEPTEMBER, 30) 
+        ));
 
         // 3. total de ventas de todos los vendedores en 2024 fue de
         System.out.println( CalculadoraVentas.totalVentasVendedores(
@@ -58,15 +54,11 @@ public class App {
         ));
 
         // 6. valor de las comisiones recibidas por el vendedor número 5 por las ventas realizadas durante el mes de octubre de 2024
-        try {
-            System.out.println( CalculadoraComisiones.calcularComisionVentas(
-                buscarVendedor(arrVendedores, 5),
-                LocalDate.of(2024, Month.OCTOBER, 1), 
-                LocalDate.of(2024, Month.OCTOBER, 31) 
-            ));
-        } catch (IllegalArgumentException e) {
-            System.out.println("El vendedor 5 no existe");
-        }
+        System.out.println( CalculadoraComisiones.calcularComisionVentas(
+            buscarVendedor(arrVendedores, 5),
+            LocalDate.of(2024, Month.OCTOBER, 1), 
+            LocalDate.of(2024, Month.OCTOBER, 31) 
+        ));
 
         // 7. valor de las comisiones recibidas por el vendedor número 46 por las ventas realizadas durante el mes de enero de 2024 
         System.out.println( CalculadoraComisiones.calcularComisionVentas(
@@ -78,7 +70,7 @@ public class App {
 
     public static Vendedor buscarVendedor(Vendedor[] vededores, int nv) {
         for (Vendedor v : vededores)
-            if (v != null && v.getNumeroVendedor() == nv) return v;
+            if (v.getNumeroVendedor() == nv) return v;
         return null;
     }
 }

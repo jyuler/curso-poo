@@ -1,6 +1,7 @@
 # Sistema de gestión de ventas
 
 Ejercicio de programación en Java para la materia de Programación Orientada a Objetos.
+[Descarga este ejercición aquí](https://downgit.github.io/#/home?url=https://github.com/jyuler/curso-poo/tree/main/gestionventas)
 
 ## Objetivo 
 - Analizar un problema de la vida real y crear una solución usando los conocimientos adquiridos en el lenguaje Java hasta el momento.
