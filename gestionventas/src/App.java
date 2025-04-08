@@ -4,14 +4,14 @@ import java.time.Month;
 import co.edu.ean.poo.comisiones.CalculadoraComisiones;
 import co.edu.ean.poo.ventas.CalculadoraVentas;
 import co.edu.ean.poo.ventas.Vendedor;
-import co.edu.ean.poo.ventas.datos.Datos;
 import co.edu.ean.poo.ventas.datos.ParseadorDatos;
 
 public class App {
     public static void main(String[] args) throws Exception {
-        String vendedores = Datos.getDatosVendedores();
-        String ventas = Datos.getDatosVentas();
-        Vendedor[] arrVendedores = ParseadorDatos.parse(vendedores, ventas);
+        String rutaArchivoVendedores = "data/vendedores.csv";
+        String rutaArchivoVentas = "data/ventas.csv";
+        Vendedor[] arrVendedores = ParseadorDatos.parseDesdeArchivos(rutaArchivoVendedores, rutaArchivoVentas);
+
 
         // 1. valor total de ventas que el vendedor 26 tuvo en el mes de noviembre 2024
         System.out.println( CalculadoraVentas.totalVentasVendedor(

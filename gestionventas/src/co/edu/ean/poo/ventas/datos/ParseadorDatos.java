@@ -13,10 +13,30 @@ public class ParseadorDatos {
      * Parsea las cadenas de texto que contienen información de vendedores y ventas,
      * y crea un arreglo de objetos Vendedor con sus respectivas ventas registradas.
      * 
-     * @param vendedores Una cadena de texto con información de vendedores, donde cada línea representa un vendedor
-     *                   y los campos están separados por comas. Los campos son: número de vendedor, nombre, apellido y fecha de ingreso.
-     * @param ventas Una cadena de texto con información de ventas, donde cada línea representa una venta
-     *               y los campos están separados por comas. Los campos son: número de vendedor, fecha de la venta y valor de la venta.
+     * @param rutaArchivoVendedores La ubicación del archivo que contiene la información
+     *                   de los vendedores. Cada línea representa un vendedor y los campos
+     *                   están separados por comas. Los campos son: número de vendedor, nombre,
+     *                   apellido y fecha de ingreso.
+     * @param rutaArchivoVentas     La ubicación del archivo que contiene la información
+     *                   de las ventas. Cada línea representa una venta y los campos están
+     *                   separados por comas. Los campos son: número de vendedor, fecha de venta
+     *                   y valor de la venta.
+     * @return Un arreglo de objetos Vendedor con las ventas registradas.
+     */
+    public static Vendedor[] parseDesdeArchivos(String rutaArchivoVendedores, String rutaArchivoVentas) {
+        // TODO: Implementar la lectura de archivos
+    }
+
+    /**
+     * Parsea las cadenas de texto que contienen información de vendedores y ventas,
+     * y crea un arreglo de objetos Vendedor con sus respectivas ventas registradas.
+     * 
+     * @param vendedores La cadena de texto que contiene la información de los vendedores.
+     *                   Cada línea representa un vendedor y los campos están separados por comas.
+     *                   Los campos son: número de vendedor, nombre, apellido y fecha de ingreso.
+     * @param ventas     La cadena de texto que contiene la información de las ventas.
+     *                   Cada línea representa una venta y los campos están separados por comas.
+     *                   Los campos son: número de vendedor, fecha de venta y valor de la venta.
      * @return Un arreglo de objetos Vendedor con las ventas registradas.
      */
     public static Vendedor[] parse(String vendedores, String ventas) {
@@ -37,11 +57,9 @@ public class ParseadorDatos {
             String[] campos = linea.split(",");
             int nv = Integer.parseInt(campos[0]);
             Vendedor v = buscaVendedor(nv, arrVendedores);
-            if (v != null) {
-                LocalDate fechaVenta = LocalDate.parse(campos[1]);
-                int valor = Integer.parseInt(campos[2]);
-                v.registrarVenta(fechaVenta, valor);
-            }
+            LocalDate fechaVenta = LocalDate.parse(campos[1]);
+            int valor = Integer.parseInt(campos[2]);
+            v.registrarVenta(fechaVenta, valor);
         }
 
         return arrVendedores;

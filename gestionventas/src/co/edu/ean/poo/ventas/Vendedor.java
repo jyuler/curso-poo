@@ -45,10 +45,10 @@ public class Vendedor {
         for (int i = 0; i < ventas.length; i++) {
             if ( ventas[i] == null ) {
                 ventas[i] = v;
-                break;
+                return true;
             }
         }
-        return true;
+        return false;
     }
 
     public void registrarVenta(LocalDate fechaVenta, int valor) {
