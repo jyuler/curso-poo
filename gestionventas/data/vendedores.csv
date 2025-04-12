@@ -1,11 +1,12 @@
 1,Sofia,Rodriguez,2024-05-15
 2,Mateo,Gonzalez,2024-12-01
 3,Isabella,Perez,2024-03-10 
+4,Vendedor repetido,Ya Existe,2024-10-20
 4,Sebastian,Sanchez,2024-10-20
 5,Valentina,Ramirez,2024-08-55
 6,Alejandro,Torres,2024-06-25
-7,Gabriela,Diaz,2024-01-18
-v8,Samuel,Vargas,2024-11-08
+7 ,Gabriela,Diaz,2024-01-18
+avc,Samuel,Vargas,2024-11-08
 9,Daniela,Jimenez,2024-04-02
 10,Nicolas,Castro,2024-09-14
 ,Maria,Ortiz,2024-07-22
@@ -14,7 +15,7 @@ v8,Samuel,Vargas,2024-11-08
 14,Santiago,Gutierrez,2024-05-03
 15,Camila,Ruiz,2024-09-07
 16,Diego,Alvarez,2024-09-30
-17,Valeria,Herrera,2024-11-19
+17,    Valeria       ,    Herrera  ,2024-11-19
 18,Juan,Navarro,2024-03-08
 19,Ana,Medina,2024-16-16
 20,Andres,Ferna

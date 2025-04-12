@@ -46,6 +46,7 @@ public class CalculadoraComisiones {
      * @return el valor total de la comisión.
      */
     public static int calcularComisionVentas( Vendedor vendedor, LocalDate fechaInicio, LocalDate fechaFin ) {
+        if ( vendedor == null ) throw new IllegalArgumentException("El vendedor no puede ser nulo");
         float comision = 0;
         Venta[] ventas = vendedor.getVentas();
         for (int i = 0; i < ventas.length; i++) {
