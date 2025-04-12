@@ -8,6 +8,7 @@ import java.time.LocalDate;
  */
 public class CalculadoraVentas {
     public static int totalVentasVendedor( Vendedor vendedor,  LocalDate fechaInicio, LocalDate fechaFin ) {
+        if ( vendedor == null ) throw new IllegalArgumentException("El vendedor no puede ser nulo");
         Venta[] ventas = vendedor.getVentas();
         int totalVentas = 0;
         for (int i = 0; i < ventas.length; i++) {
@@ -29,6 +30,7 @@ public class CalculadoraVentas {
     public static long totalVentasVendedores( Vendedor[] vendedores, LocalDate fechaInicio, LocalDate fechaFin ) {
         long totalVentas = 0;
         for (Vendedor v : vendedores) {
+            if ( v == null ) continue;
             totalVentas += totalVentasVendedor(v, fechaInicio, fechaFin);
         }
         return totalVentas;
@@ -46,6 +48,7 @@ public class CalculadoraVentas {
         Vendedor[] topN = new Vendedor[top];
         int[] topNVentas = new int[top];
         for( Vendedor v : vendedores ) {
+            if ( v == null ) continue;
             int tvv = totalVentasVendedor(v, fechaInicio, fechaFin);
             for (int i = 0; i < top; i++) {
                 if (tvv > topNVentas[i]) {
