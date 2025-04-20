@@ -1,6 +1,7 @@
 package co.edu.ean.poo.comisiones;
 
 import java.time.LocalDate;
+import java.util.Collection;
 
 import co.edu.ean.poo.ventas.Vendedor;
 import co.edu.ean.poo.ventas.Venta;
@@ -48,9 +49,7 @@ public class CalculadoraComisiones {
     public static int calcularComisionVentas( Vendedor vendedor, LocalDate fechaInicio, LocalDate fechaFin ) {
         if ( vendedor == null ) throw new IllegalArgumentException("El vendedor no puede ser nulo");
         float comision = 0;
-        Venta[] ventas = vendedor.getVentas();
-        for (int i = 0; i < ventas.length; i++) {
-            Venta venta = ventas[i];
+        for (Venta venta : vendedor.getVentas()) {
             if ( venta == null ) continue;
             if (venta.fecha().isBefore(fechaInicio) || venta.fecha().isAfter(fechaFin) ) continue;    
             comision += CalculadoraComisiones.calcularComision(vendedor.getFechaIngreso(), venta.fecha(), venta.valor() ).comision();
@@ -65,7 +64,7 @@ public class CalculadoraComisiones {
      * @param vendedores arreglo de objetos Vendedor sobre los cuales se calculan las comisiones
      * @return el valor total de las comisiones de todos los vendedores
      */
-    public static int totalComisionesVendedores( LocalDate fechaInicio, LocalDate fechaFin, Vendedor[] vendedores ) {
+    public static int totalComisionesVendedores( LocalDate fechaInicio, LocalDate fechaFin, Collection<Vendedor> vendedores ) {
         int totalComisiones = 0;
         for (Vendedor v : vendedores) {
             totalComisiones += calcularComisionVentas(v, fechaInicio, fechaFin);
