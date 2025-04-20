@@ -15,6 +15,7 @@ public class Vendedor {
         apellido = ap;
         fechaIngreso = f;
     }
+    public Vendedor(){}
 
     public int getNumeroVendedor() {
         return numeroVendedor;

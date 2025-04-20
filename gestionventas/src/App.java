@@ -1,17 +1,24 @@
 import java.time.LocalDate;
 import java.time.Month;
+import java.util.Arrays;
 
 import co.edu.ean.poo.comisiones.CalculadoraComisiones;
+import co.edu.ean.poo.gui.Controller;
+import co.edu.ean.poo.gui.VentasGUI;
 import co.edu.ean.poo.ventas.CalculadoraVentas;
 import co.edu.ean.poo.ventas.Vendedor;
 import co.edu.ean.poo.ventas.datos.ParseadorDatos;
 
 public class App {
+
     public static void main(String[] args) throws Exception {
         String rutaArchivoVendedores = "data/vendedores.csv";
         String rutaArchivoVentas = "data/ventas.csv";
         Vendedor[] arrVendedores = ParseadorDatos.parseDesdeArchivos(rutaArchivoVendedores, rutaArchivoVentas);
 
+        Controller c = new Controller(Arrays.asList(arrVendedores));
+        VentasGUI vgui = new VentasGUI(c);
+        vgui.mostrarVentana();
 
         // 1. valor total de ventas que el vendedor 26 tuvo en el mes de noviembre 2024
         System.out.println( CalculadoraVentas.totalVentasVendedor(
