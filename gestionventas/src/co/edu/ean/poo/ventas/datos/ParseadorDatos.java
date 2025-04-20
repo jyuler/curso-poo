@@ -4,6 +4,8 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.time.LocalDate;
 import java.time.format.DateTimeParseException;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Scanner;
 
 import co.edu.ean.poo.ventas.Vendedor;
@@ -25,18 +27,22 @@ public class ParseadorDatos {
      *                   de las ventas. Cada línea representa una venta y los campos están
      *                   separados por comas. Los campos son: número de vendedor, fecha de venta
      *                   y valor de la venta.
-     * @return Un arreglo de objetos Vendedor con las ventas registradas.
+     * @return Un Set de objetos Vendedor con las ventas registradas.
      */
-    public static Vendedor[] parseDesdeArchivos(String rutaArchivoVendedores, String rutaArchivoVentas) throws FileNotFoundException{
+    public static Map<Integer,Vendedor> parseDesdeArchivos(String rutaArchivoVendedores, String rutaArchivoVentas) throws FileNotFoundException{
         File fvend = new File(rutaArchivoVendedores);
         File fvent = new File(rutaArchivoVentas);
+        Map<Integer,Vendedor> vendedores = parseArchivoVendedores(fvend);
+        parseArchivoVentas( fvent, vendedores);
+        return vendedores;
+    }
 
-        Vendedor[] arrVendedores = new Vendedor[50];
-        int posv = 0;
+    private static  Map<Integer,Vendedor> parseArchivoVendedores(File fvend) throws FileNotFoundException  {
+        Map<Integer,Vendedor> vendedores = new HashMap<>();
 
-        Scanner scn = null;
-        try { 
-            scn = new Scanner( fvend );
+        try ( 
+            Scanner scn = new Scanner( fvend );
+        ) {
             while (scn.hasNextLine()) {
                 String linea = scn.nextLine();
                 String[] campos = linea.split(",");
@@ -60,16 +66,23 @@ public class ParseadorDatos {
                     System.out.printf("Vendedor %d con fecha de ingreso incorrecta: '%s'\n", nv, campos[3]);
                     continue;
                 }
-                arrVendedores[posv++] = new Vendedor(nv, nombre, apellido, fecha);
-            }
-        } finally {
-            if (scn != null) {
-                scn.close();
+                var nuevoVendedor = new Vendedor(nv, nombre, apellido, fecha);
+                var anterior = vendedores.put( nv,  nuevoVendedor );
+                if ( anterior != null ) {
+                    System.err.printf("Vendedor duplicado: '%d:%s %s' y '%d:%s %s'\n", 
+                    anterior.getNumeroVendedor(), anterior.getNombre(), anterior.getApellido(), 
+                    nv, nuevoVendedor.getNombre(), nuevoVendedor.getApellido());
+                }
             }
         }
+        return vendedores;
+    }
 
-        try { 
-            scn = new Scanner( fvent );
+    private static void parseArchivoVentas(File fvent, Map<Integer,Vendedor> vendedores) throws FileNotFoundException {
+
+        try ( 
+            Scanner scn = new Scanner( fvent );
+        ) {
             while (scn.hasNextLine()) {
                 String linea = scn.nextLine();
                 String[] campos = linea.split(",");
@@ -84,7 +97,7 @@ public class ParseadorDatos {
                     System.err.printf("Numero de vendedor no valido: '%s'\n", campos[0]);
                     continue;
                 }
-                Vendedor v = buscaVendedor(nv, arrVendedores);
+                Vendedor v = vendedores.get(nv);
                 if (v != null) {
                     LocalDate fechaVenta;
                     try {
@@ -103,67 +116,6 @@ public class ParseadorDatos {
                     v.registrarVenta(fechaVenta, valor);
                 }
             }
-        } finally {
-            if (scn != null) {
-                scn.close();
-            }
-        }
-
-
-        return arrVendedores;
-    }
-
-    /**
-     * Parsea las cadenas de texto que contienen información de vendedores y ventas,
-     * y crea un arreglo de objetos Vendedor con sus respectivas ventas registradas.
-     * 
-     * @param vendedores La cadena de texto que contiene la información de los vendedores.
-     *                   Cada línea representa un vendedor y los campos están separados por comas.
-     *                   Los campos son: número de vendedor, nombre, apellido y fecha de ingreso.
-     * @param ventas     La cadena de texto que contiene la información de las ventas.
-     *                   Cada línea representa una venta y los campos están separados por comas.
-     *                   Los campos son: número de vendedor, fecha de venta y valor de la venta.
-     * @return Un arreglo de objetos Vendedor con las ventas registradas.
-     */
-    public static Vendedor[] parse(String vendedores, String ventas) {
-        String[] lineas = vendedores.split("\n");
-        Vendedor[] arrVendedores = new Vendedor[lineas.length];
-        int posv = 0;
-        for (String linea : lineas) {
-            String[] campos = linea.split(",");
-            int nv = Integer.parseInt(campos[0]);
-            String nombre = campos[1];
-            String apellido = campos[2];
-            LocalDate fecha = LocalDate.parse(campos[3]);
-            arrVendedores[posv++] = new Vendedor(nv, nombre, apellido, fecha);
-        }
-
-        lineas = ventas.split("\n");
-        for (String linea : lineas) {
-            String[] campos = linea.split(",");
-            int nv = Integer.parseInt(campos[0]);
-            Vendedor v = buscaVendedor(nv, arrVendedores);
-            LocalDate fechaVenta = LocalDate.parse(campos[1]);
-            int valor = Integer.parseInt(campos[2]);
-            v.registrarVenta(fechaVenta, valor);
-        }
-
-        return arrVendedores;
-    }
-
-    /**
-     * Busca un vendedor en el arreglo de vendedores por su número de vendedor.
-     * 
-     * @param nv El número de vendedor a buscar.
-     * @param vendedores El arreglo de vendedores donde buscar.
-     * @return El objeto Vendedor correspondiente al número de vendedor, o null si no se encuentra.
-     */
-    public static Vendedor buscaVendedor(int nv, Vendedor[] vendedores) {
-        for (Vendedor v : vendedores) {
-            if (v != null && v.getNumeroVendedor() == nv) {
-                return v;
-            }
-        }
-        return null;
+        } 
     }
 }

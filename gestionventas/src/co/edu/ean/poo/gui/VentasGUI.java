@@ -1,31 +1,26 @@
 package co.edu.ean.poo.gui;
 
 import java.awt.Dimension;
-import java.awt.Frame;
 import java.awt.GridLayout;
-import java.awt.Label;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
-import java.awt.event.WindowAdapter;
-import java.awt.event.WindowEvent;
-import java.util.List;
 
 import javax.swing.BoxLayout;
-import javax.swing.DefaultComboBoxModel;
 import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
+import javax.swing.SwingConstants;
 import javax.swing.SwingUtilities;
+import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 
-import co.edu.ean.poo.ventas.Vendedor;
 
 public class VentasGUI extends JFrame {
     private Controller controller;
-    private JComboBox<Vendedor> comboBoxVendedores;
+    private JComboBox<VendedorGUI> comboBoxVendedores;
     private JLabel labelIdVendedor;
     private JLabel labelNombre;
     private JLabel labelApellido;
@@ -51,7 +46,7 @@ public class VentasGUI extends JFrame {
         comboBoxVendedores.setEditable(true);
         comboBoxVendedores.setSelectedItem(null);
         comboBoxVendedores.addActionListener(e -> controller.mostrarDetallesVendedor(
-            (Vendedor) comboBoxVendedores.getSelectedItem(),
+            comboBoxVendedores.getSelectedItem(),
             labelIdVendedor, labelNombre, labelApellido, labelFechaIngreso,
             modeloTabla
         ));
@@ -82,6 +77,11 @@ public class VentasGUI extends JFrame {
         // Sección inferior: Tabla de ventas
         modeloTabla = new DefaultTableModel(new Object[]{"Fecha", "Valor Venta", "Comisión"}, 0);
         tablaVentas = new JTable(modeloTabla);
+        tablaVentas.setAutoCreateRowSorter(true);
+        DefaultTableCellRenderer renderizadorDerecha = new DefaultTableCellRenderer();
+        renderizadorDerecha.setHorizontalAlignment(SwingConstants.RIGHT);
+        tablaVentas.getColumnModel().getColumn(1).setCellRenderer(renderizadorDerecha);
+        tablaVentas.getColumnModel().getColumn(2).setCellRenderer(renderizadorDerecha);
         add(new JScrollPane(tablaVentas) );
         pack();
     }

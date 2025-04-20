@@ -1,30 +1,28 @@
 package co.edu.ean.poo.gui;
 
-import java.util.List;
+import java.util.Collection;
 
 import javax.swing.ComboBoxModel;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JComboBox;
 import javax.swing.JLabel;
 import javax.swing.JTextField;
-import javax.swing.event.ListDataListener;
-import javax.swing.table.AbstractTableModel;
 import javax.swing.table.DefaultTableModel;
-import javax.swing.table.TableModel;
 
 import co.edu.ean.poo.comisiones.CalculadoraComisiones;
 import co.edu.ean.poo.ventas.Vendedor;
 import co.edu.ean.poo.ventas.Venta;
 
 public class Controller {
-    private List<Vendedor> vendedores;
+    private Collection<Vendedor> vendedores;
     
-    public Controller(List<Vendedor> ls ) {
-        vendedores = ls;
+    public Controller(Collection<Vendedor> vs ) {
+        vendedores = vs;
     }
 
-    void mostrarDetallesVendedor( Vendedor v, JLabel lbid, JLabel lbnm, JLabel lbap, JLabel lbf, DefaultTableModel modeloTabla ) {
-        if (v == null) return;
+    void mostrarDetallesVendedor( Object ov, JLabel lbid, JLabel lbnm, JLabel lbap, JLabel lbf, DefaultTableModel modeloTabla ) {
+        if (ov == null || ! (ov instanceof VendedorGUI) ) return;
+        Vendedor v = (VendedorGUI) ov; 
         lbid.setText(String.valueOf(v.getNumeroVendedor() ) );
         lbnm.setText(v.getNombre());
         lbap.setText(v.getApellido());
@@ -35,29 +33,33 @@ public class Controller {
             if ( venta == null ) continue;
             modeloTabla.addRow(new Object[]{ 
                 venta.fecha(), 
-                venta.valor(), 
-                CalculadoraComisiones.calcularComision(v.getFechaIngreso(), venta.fecha(), venta.valor() ).comision() 
+                String.format("%,d", venta.valor() ), 
+                String.format("%,.2f",
+                    CalculadoraComisiones.calcularComision(v.getFechaIngreso(), venta.fecha(), venta.valor() ).comision() 
+                )
             });
         }
     }
 
-    ComboBoxModel<Vendedor> getComboboxModel() {
+    ComboBoxModel<VendedorGUI> getComboboxModel() {
         VendedorGUI[] vgui = new VendedorGUI[ vendedores.size() ];
-        for( int i=0; i< vgui.length; i++ )
-            if ( vendedores.get(i) != null )
-                vgui[i] = new VendedorGUI( vendedores.get(i) );
-        return new DefaultComboBoxModel<>( vgui );
+        int i=0;
+        for( Vendedor v : vendedores ) {
+            if ( v == null ) continue;
+            vgui[i++] = new VendedorGUI( v );
+        }
+        return new DefaultComboBoxModel<VendedorGUI>( vgui );
     }
 
-    void filtrarVendedores(JComboBox<Vendedor> cb) {
+    void filtrarVendedores(JComboBox<VendedorGUI> cb) {
         System.out.println("filtrando...");
         String texto = ((JTextField) cb.getEditor().getEditorComponent()).getText();
-        DefaultComboBoxModel<Vendedor> modelo = (DefaultComboBoxModel<Vendedor>) cb.getModel();
+        DefaultComboBoxModel<VendedorGUI> modelo = (DefaultComboBoxModel<VendedorGUI>) cb.getModel();
 
         modelo.removeAllElements();
         for (Vendedor vendedor : vendedores) {
             if (vendedor.getNombre().toLowerCase().contains(texto.toLowerCase()) || vendedor.getApellido().toLowerCase().contains(texto.toLowerCase())) {
-                modelo.addElement(vendedor);
+                modelo.addElement(new VendedorGUI( vendedor ));
             }
         }
         ((JTextField) cb.getEditor().getEditorComponent()).setText(texto);

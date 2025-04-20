@@ -1,13 +1,15 @@
 package co.edu.ean.poo.ventas;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
 
 public class Vendedor {
     private int numeroVendedor;
     private String nombre;
     private String apellido;
     private LocalDate fechaIngreso;
-    private Venta[] ventas = new Venta[50];
+    private List<Venta> ventas = new ArrayList<>(100);
 
     public Vendedor(int nv, String nm, String ap, LocalDate f ) {
         numeroVendedor = nv;
@@ -42,22 +44,22 @@ public class Vendedor {
      * @return true si la venta fue registrada, en caso contrario false
      */
     public boolean registrarVenta(Venta v) {
-        if ( v.fecha().isBefore( fechaIngreso ) ) return false;
-        for (int i = 0; i < ventas.length; i++) {
-            if ( ventas[i] == null ) {
-                ventas[i] = v;
-                return true;
-            }
-        }
-        return false;
+        if ( v == null || v.fecha().isBefore( fechaIngreso ) ) return false;
+        ventas.add(v);
+        return true;
     }
 
     public void registrarVenta(LocalDate fechaVenta, int valor) {
         registrarVenta( new Venta(fechaVenta, valor) );
     }
 
-    public Venta[] getVentas() {
+    public List<Venta> getVentas() {
         return ventas;
+    }
+
+    @Override
+    public boolean equals( Object otro ) {
+        return otro instanceof Vendedor ov && numeroVendedor == ov.numeroVendedor;
     }
 
     @Override
