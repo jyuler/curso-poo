@@ -3,7 +3,8 @@ import java.time.Month;
 import java.util.Map;
 
 import co.edu.ean.poo.comisiones.CalculadoraComisiones;
-import co.edu.ean.poo.gui.Controller;
+import co.edu.ean.poo.gui.LoginController;
+import co.edu.ean.poo.gui.VentasController;
 import co.edu.ean.poo.gui.VentasGUI;
 import co.edu.ean.poo.ventas.CalculadoraVentas;
 import co.edu.ean.poo.ventas.Vendedor;
@@ -16,9 +17,11 @@ public class App {
         String rutaArchivoVentas = "data/ventas.csv";
         Map<Integer,Vendedor> vendedores = ParseadorDatos.parseDesdeArchivos(rutaArchivoVendedores, rutaArchivoVentas);
 
-        Controller c = new Controller( vendedores.values());
-        VentasGUI vgui = new VentasGUI(c);
-        vgui.mostrarVentana();
+        new LoginController().mostrarLogin().siLoginExitoso( () -> {
+            // TODO: cambiar la lamda por una clase que implemente Runnable
+            new VentasController( vendedores.values() ).mostrarVentas();
+        });
+
 
         // 1. valor total de ventas que el vendedor 26 tuvo en el mes de noviembre 2024
         System.out.println( CalculadoraVentas.totalVentasVendedor(

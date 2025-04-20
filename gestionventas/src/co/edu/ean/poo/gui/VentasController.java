@@ -7,16 +7,17 @@ import javax.swing.DefaultComboBoxModel;
 import javax.swing.JComboBox;
 import javax.swing.JLabel;
 import javax.swing.JTextField;
+import javax.swing.SwingUtilities;
 import javax.swing.table.DefaultTableModel;
 
 import co.edu.ean.poo.comisiones.CalculadoraComisiones;
 import co.edu.ean.poo.ventas.Vendedor;
 import co.edu.ean.poo.ventas.Venta;
 
-public class Controller {
+public class VentasController {
     private Collection<Vendedor> vendedores;
     
-    public Controller(Collection<Vendedor> vs ) {
+    public VentasController(Collection<Vendedor> vs ) {
         vendedores = vs;
     }
 
@@ -64,5 +65,9 @@ public class Controller {
         }
         ((JTextField) cb.getEditor().getEditorComponent()).setText(texto);
         cb.showPopup();
+    }
+
+    public void mostrarVentas() {
+        SwingUtilities.invokeLater(() -> new VentasGUI(this).setVisible(true) );
     }
 }

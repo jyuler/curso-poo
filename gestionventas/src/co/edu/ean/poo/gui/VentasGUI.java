@@ -19,7 +19,7 @@ import javax.swing.table.DefaultTableModel;
 
 
 public class VentasGUI extends JFrame {
-    private Controller controller;
+    private VentasController controller;
     private JComboBox<VendedorGUI> comboBoxVendedores;
     private JLabel labelIdVendedor;
     private JLabel labelNombre;
@@ -29,7 +29,7 @@ public class VentasGUI extends JFrame {
     private DefaultTableModel modeloTabla;
 
 
-    public VentasGUI(Controller c) {
+    public VentasGUI(VentasController c) {
         controller = c;
         inicializarGUI();
     }
@@ -86,7 +86,5 @@ public class VentasGUI extends JFrame {
         pack();
     }
 
-    public void mostrarVentana() {
-        SwingUtilities.invokeLater(() -> setVisible(true) );
-    }
+
 }
