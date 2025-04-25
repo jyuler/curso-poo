@@ -1,6 +1,7 @@
 package co.edu.ean.poo.ventas;
 
 import java.time.LocalDate;
+import java.util.Collection;
 
 /**
  * La clase CalculadoraVentas contiene métodos para calcular el total de ventas de un vendedor, 
@@ -9,10 +10,9 @@ import java.time.LocalDate;
 public class CalculadoraVentas {
     public static int totalVentasVendedor( Vendedor vendedor,  LocalDate fechaInicio, LocalDate fechaFin ) {
         if ( vendedor == null ) throw new IllegalArgumentException("El vendedor no puede ser nulo");
-        Venta[] ventas = vendedor.getVentas();
+        Collection<Venta> ventas = vendedor.getVentas();
         int totalVentas = 0;
-        for (int i = 0; i < ventas.length; i++) {
-            Venta venta = ventas[i];
+        for (Venta venta : ventas) {
             if ( venta == null ) continue;
             if (venta.fecha().compareTo(fechaInicio) >= 0 && venta.fecha().compareTo(fechaFin) <= 0) 
                 totalVentas += venta.valor();
@@ -27,7 +27,7 @@ public class CalculadoraVentas {
      * @param fechaFin Fecha de fin del rango de fechas.
      * @return Total de ventas de los vendedores en el rango de fechas.
      */
-    public static long totalVentasVendedores( Vendedor[] vendedores, LocalDate fechaInicio, LocalDate fechaFin ) {
+    public static long totalVentasVendedores( Collection<Vendedor> vendedores, LocalDate fechaInicio, LocalDate fechaFin ) {
         long totalVentas = 0;
         for (Vendedor v : vendedores) {
             if ( v == null ) continue;
@@ -44,7 +44,7 @@ public class CalculadoraVentas {
      * @param fechaFin Fecha de fin del rango de fechas.
      * @return Arreglo de vendedores de tamaño top con mayor valor en ventas en el rango de fechas.
      */
-    public static Vendedor[] topNVendedores( Vendedor[] vendedores, int top, LocalDate fechaInicio, LocalDate fechaFin ) {
+    public static Vendedor[] topNVendedores( Collection<Vendedor> vendedores, int top, LocalDate fechaInicio, LocalDate fechaFin ) {
         Vendedor[] topN = new Vendedor[top];
         int[] topNVentas = new int[top];
         for( Vendedor v : vendedores ) {

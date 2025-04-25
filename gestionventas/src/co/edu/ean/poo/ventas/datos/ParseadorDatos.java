@@ -4,6 +4,8 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.time.LocalDate;
 import java.time.format.DateTimeParseException;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Scanner;
 
 import co.edu.ean.poo.ventas.Vendedor;
@@ -27,16 +29,15 @@ public class ParseadorDatos {
      *                   y valor de la venta.
      * @return Un arreglo de objetos Vendedor con las ventas registradas.
      */
-    public static Vendedor[] parseDesdeArchivos(String rutaArchivoVendedores, String rutaArchivoVentas) throws FileNotFoundException{
+    public static Map<Integer, Vendedor> parseDesdeArchivos(String rutaArchivoVendedores, String rutaArchivoVentas) throws FileNotFoundException{
         var arrVendedores = parseVendedoresDesdeArchivo(rutaArchivoVendedores);
         parseVentasDesdeArchivo(rutaArchivoVentas, arrVendedores);        
         return arrVendedores;
     }
 
-    private static Vendedor[] parseVendedoresDesdeArchivo(String rutaArchivoVendedores) throws FileNotFoundException {
+    private static Map<Integer, Vendedor> parseVendedoresDesdeArchivo(String rutaArchivoVendedores) throws FileNotFoundException {
         File fvend = new File(rutaArchivoVendedores);
-        Vendedor[] arrVendedores = new Vendedor[50];
-        int posv = 0;
+        Map<Integer, Vendedor> mapVendedores = new HashMap<>();
         try ( 
             Scanner scn = new Scanner( fvend );
         ) {
@@ -63,13 +64,17 @@ public class ParseadorDatos {
                     System.out.printf("Vendedor %d con fecha de ingreso incorrecta: '%s'\n", nv, campos[3]);
                     continue;
                 }
-                arrVendedores[posv++] = new Vendedor(nv, nombre, apellido, fecha);
+                Vendedor nuevo = new Vendedor(nv, nombre, apellido, fecha);
+                Vendedor anterior = mapVendedores.put(nv, nuevo);
+                if ( anterior != null ) {
+                    System.out.printf("Vendedor repetido. Anterior %s, Nuevo: %s\n", anterior, nuevo);;
+                }
             }
         }
-        return arrVendedores;
+        return mapVendedores;
     }
 
-    private static void parseVentasDesdeArchivo(String rutaArchivoVentas, Vendedor[] arrVendedores) throws FileNotFoundException {
+    private static void parseVentasDesdeArchivo(String rutaArchivoVentas, Map<Integer, Vendedor> mapVendedores) throws FileNotFoundException {
         File fvent = new File(rutaArchivoVentas);
         try (
             Scanner scn = new Scanner( fvent );
@@ -88,7 +93,7 @@ public class ParseadorDatos {
                     System.err.printf("Numero de vendedor no valido: '%s'\n", campos[0]);
                     continue;
                 }
-                Vendedor v = buscaVendedor(nv, arrVendedores);
+                Vendedor v = mapVendedores.get(nv);
                 if (v != null) {
                     LocalDate fechaVenta;
                     try {
@@ -111,19 +116,4 @@ public class ParseadorDatos {
     }
 
 
-    /**
-     * Busca un vendedor en el arreglo de vendedores por su número de vendedor.
-     * 
-     * @param nv El número de vendedor a buscar.
-     * @param vendedores El arreglo de vendedores donde buscar.
-     * @return El objeto Vendedor correspondiente al número de vendedor, o null si no se encuentra.
-     */
-    public static Vendedor buscaVendedor(int nv, Vendedor[] vendedores) {
-        for (Vendedor v : vendedores) {
-            if (v != null && v.getNumeroVendedor() == nv) {
-                return v;
-            }
-        }
-        return null;
-    }
 }

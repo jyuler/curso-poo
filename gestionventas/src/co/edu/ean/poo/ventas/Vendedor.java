@@ -1,13 +1,15 @@
 package co.edu.ean.poo.ventas;
 
 import java.time.LocalDate;
+import java.util.LinkedList;
+import java.util.List;
 
 public class Vendedor {
     private int numeroVendedor;
     private String nombre;
     private String apellido;
     private LocalDate fechaIngreso;
-    private Venta[] ventas = new Venta[50];
+    private List<Venta> ventas = new LinkedList<>();
 
     public Vendedor(int nv, String nm, String ap, LocalDate f ) {
         numeroVendedor = nv;
@@ -42,12 +44,7 @@ public class Vendedor {
      */
     public boolean registrarVenta(Venta v) {
         if ( v.fecha().isBefore( fechaIngreso ) ) return false;
-        for (int i = 0; i < ventas.length; i++) {
-            if ( ventas[i] == null ) {
-                ventas[i] = v;
-                return true;
-            }
-        }
+        ventas.add(v);
         return false;
     }
 
@@ -55,7 +52,7 @@ public class Vendedor {
         registrarVenta( new Venta(fechaVenta, valor) );
     }
 
-    public Venta[] getVentas() {
+    public List<Venta> getVentas() {
         return ventas;
     }
 
