@@ -22,7 +22,8 @@ public class Layouts {
             JButton btn = new JButton("Botón " + (i + 1));
             f.add(btn);
         }
-        f.pack();
+        // f.setResizable(false);
+       f.pack();
         return f;
     }
 
@@ -65,12 +66,8 @@ public class Layouts {
     }
 
     public static JFrame gridbaglayout() {
-        JFrame ff = new JFrame("GridBagLayout");
-        ff.setLayout(new BoxLayout(ff.getContentPane(), BoxLayout.Y_AXIS));
-        ff.add(new JLabel("el titulo"));
-        JPanel f = new JPanel();
-        ff.add( f );
-        ff.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+        JFrame f = new JFrame("GridBagLayout");
+        f.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         f.setLayout(new GridBagLayout());
         
         JButton[] btns = new JButton[10];
@@ -98,7 +95,7 @@ public class Layouts {
         gbc.gridheight = 2;
         gbc.fill = GridBagConstraints.VERTICAL;
         f.add( btns[7], gbc);
-
+        
         gbc.gridheight = 1;
         gbc.gridwidth = 3;
         gbc.fill = GridBagConstraints.HORIZONTAL;
@@ -108,7 +105,7 @@ public class Layouts {
         gbc.gridy = 4;
         f.add( btns[9], gbc);
 
-        ff.pack();
-        return ff;
+        f.pack();
+        return f;
     }
 }

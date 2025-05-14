@@ -89,12 +89,14 @@ public class ControlesBasicos {
         //f.setLayout(new FlowLayout());
         // Define una etiqueta y una caja de texto
         JLabel lbl = new JLabel("Escribe aquì tu carta");
-        JTextArea txaCarta = new JTextArea(3,10);
-        //JScrollPane scrPane = new JScrollPane(txaCarta);
+        JTextArea txaCarta = new JTextArea(30,100);
+        JScrollPane scrPane = new JScrollPane(txaCarta);
         
         // agregamos los componentes a la ventana
         f.add(lbl, BorderLayout.NORTH);
-        f.getContentPane().add(txaCarta, BorderLayout.CENTER);
+
+        //JScrollPane scrollpane = new JScrollPane(txaCarta);
+        f.getContentPane().add(scrPane, BorderLayout.CENTER);
         // calcula el tamaño de la ventana con los controles a mostrar
         f.pack();
         return f;

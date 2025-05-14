@@ -1,16 +1,25 @@
 
-import java.awt.EventQueue;
+import java.awt.BorderLayout;
+import java.awt.Dimension;
+import java.awt.FlowLayout;
 
+import javax.swing.BoxLayout;
+import javax.swing.JButton;
 import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+import javax.swing.JTextField;
+import javax.swing.SpringLayout;
 
-import ean.poo.swing.controles.*;
+import ean.poo.swing.controles.Layouts;
 
 public class App {
+    
     public static void main(String[] args) throws Exception {
-        // primeraVentana().setVisible(true);
+        primeraVentana().setVisible(true);
         // ControlesBasicos.etiquetaHolaMundo().setVisible(true);
         // ControlesBasicos.etiquetayNombre().setVisible(true);
-        ControlesBasicos.nombreConBotones().setVisible(true);
+        // ControlesBasicos.nombreConBotones().setVisible(true);
         // ControlesBasicos.checkboxes().setVisible(true);
         // ControlesBasicos.radioButtons().setVisible(true);
 
@@ -24,7 +33,7 @@ public class App {
         // Layouts.boxlayout(BoxLayout.Y_AXIS).setVisible(true);
 
         // GridLayout
-        // Layouts.gridlayout(3, 3).setVisible(true);
+        // Layouts.gridlayout(10, 3, 3).setVisible(true);
         // Layouts.gridlayout(8, 2, 4).setVisible(true);
         // Layouts.gridlayout(13,0, 2).setVisible(true);
 
@@ -34,6 +43,7 @@ public class App {
         // Layouts.borderlayout(3).setVisible(true);
         // Layouts.borderlayout(4).setVisible(true);
         // Layouts.borderlayout(5).setVisible(true);
+        // Layouts.borderlayout(6).setVisible(true);
         // ControlesBasicos.etiquetayTextoMultilinea().setVisible(true);
 
 
