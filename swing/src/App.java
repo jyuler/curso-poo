@@ -1,7 +1,6 @@
 
-import java.awt.BorderLayout;
-import java.awt.Dimension;
-import java.awt.FlowLayout;
+import java.awt.EventQueue;
+import java.util.ResourceBundle.Control;
 
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
@@ -11,6 +10,7 @@ import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.SpringLayout;
 
+import ean.poo.swing.controles.ControlesBasicos;
 import ean.poo.swing.controles.Layouts;
 
 public class App {
@@ -22,6 +22,7 @@ public class App {
         // ControlesBasicos.nombreConBotones().setVisible(true);
         // ControlesBasicos.checkboxes().setVisible(true);
         // ControlesBasicos.radioButtons().setVisible(true);
+        ControlesBasicos.botonesConEventos().setVisible(true);
 
         // FlowLayout
         // Layouts.flowlayout(FlowLayout.LEFT).setVisible(true);
@@ -45,12 +46,11 @@ public class App {
         // Layouts.borderlayout(5).setVisible(true);
         // Layouts.borderlayout(6).setVisible(true);
         // ControlesBasicos.etiquetayTextoMultilinea().setVisible(true);
-
-
         // Layouts.gridbaglayout().setVisible(true);
 
-        // ControlesConModelo.lista().setVisible(true);
 
+        
+        // ControlesConModelo.lista().setVisible(true);
         // ControlesConModelo.combobox().setVisible(true);
         // ControlesConModelo.comboboxConModel().setVisible(true);
     }
