@@ -1,5 +1,5 @@
 package ean.poo.clasesanonimas;
 
-public interface ProcesadorDocumentos {
+public interface ProcesadorDocumento {
     void procesar();
 }
