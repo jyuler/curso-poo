@@ -2,12 +2,16 @@ package ean.poo.swing.controles;
 
 import java.awt.BorderLayout;
 import java.awt.FlowLayout;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 import javax.swing.ButtonGroup;
 import javax.swing.JButton;
 import javax.swing.JCheckBox;
+import javax.swing.JDialog;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JRadioButton;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
@@ -95,6 +99,44 @@ public class ControlesBasicos {
         // agregamos los componentes a la ventana
         f.add(lbl, BorderLayout.NORTH);
         f.getContentPane().add(txaCarta, BorderLayout.CENTER);
+        // calcula el tamaño de la ventana con los controles a mostrar
+        f.pack();
+        return f;
+    }
+
+
+    public static JFrame botonesConEventos() {
+        JFrame f = new JFrame("Mi ventana con eventos");
+        f.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+        f.setLayout(new FlowLayout());
+        // Define una etiqueta y una caja de texto
+        JLabel lbl = new JLabel("Nombre y apellido");
+        JTextField txt = new JTextField(25);
+        JButton btnGuardar = new JButton("Guardar");
+        JButton btnCancelar = new JButton("Cancelar");
+
+        btnGuardar.addActionListener( new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                System.out.println("Guardando...");
+                System.out.println("Nombre: " + txt.getText());
+            }
+        });
+
+        btnCancelar.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                var rs = JOptionPane.showConfirmDialog(f, "¿quieres salir deberitas deberitas?", "¿ Seguro(a) ?", JOptionPane.YES_NO_OPTION);
+                if ( rs == JOptionPane.YES_OPTION )
+                    f.dispose();
+            }
+        });
+
+        // agregamos los componentes a la ventana
+        f.add(lbl);
+        f.add(txt);
+        f.add( btnGuardar );
+        f.add( btnCancelar );
         // calcula el tamaño de la ventana con los controles a mostrar
         f.pack();
         return f;

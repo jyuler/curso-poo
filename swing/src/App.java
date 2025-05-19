@@ -1,5 +1,6 @@
 
 import java.awt.EventQueue;
+import java.util.ResourceBundle.Control;
 
 import javax.swing.JFrame;
 
@@ -10,9 +11,10 @@ public class App {
         // primeraVentana().setVisible(true);
         // ControlesBasicos.etiquetaHolaMundo().setVisible(true);
         // ControlesBasicos.etiquetayNombre().setVisible(true);
-        ControlesBasicos.nombreConBotones().setVisible(true);
+        // ControlesBasicos.nombreConBotones().setVisible(true);
         // ControlesBasicos.checkboxes().setVisible(true);
         // ControlesBasicos.radioButtons().setVisible(true);
+        ControlesBasicos.botonesConEventos().setVisible(true);
 
         // FlowLayout
         // Layouts.flowlayout(FlowLayout.LEFT).setVisible(true);
@@ -35,12 +37,11 @@ public class App {
         // Layouts.borderlayout(4).setVisible(true);
         // Layouts.borderlayout(5).setVisible(true);
         // ControlesBasicos.etiquetayTextoMultilinea().setVisible(true);
-
-
         // Layouts.gridbaglayout().setVisible(true);
 
-        // ControlesConModelo.lista().setVisible(true);
 
+        
+        // ControlesConModelo.lista().setVisible(true);
         // ControlesConModelo.combobox().setVisible(true);
         // ControlesConModelo.comboboxConModel().setVisible(true);
     }
