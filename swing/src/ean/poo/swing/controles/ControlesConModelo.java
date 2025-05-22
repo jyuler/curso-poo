@@ -1,9 +1,15 @@
 package ean.poo.swing.controles;
 
+import java.awt.Component;
+import java.awt.event.ActionListener;
+
 import javax.swing.DefaultComboBoxModel;
+import javax.swing.DefaultListCellRenderer;
 import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JList;
+import javax.swing.ListSelectionModel;
+import javax.swing.event.ListSelectionListener;
 
 public class ControlesConModelo {
     public static JFrame combobox() {
@@ -15,8 +21,14 @@ public class ControlesConModelo {
         f.pack();
 
         cboNombres.setSelectedIndex(3);
-        System.out.println( cboNombres.getSelectedIndex());
-        System.out.println( cboNombres.getSelectedItem());
+
+        cboNombres.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(java.awt.event.ActionEvent e) {
+                System.out.println( cboNombres.getSelectedIndex());
+                System.out.println( cboNombres.getSelectedItem() );
+            }
+        });
 
         return f;
     }
@@ -29,9 +41,16 @@ public class ControlesConModelo {
         f.add(lsNombres);
         f.pack();
 
+        lsNombres.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
         lsNombres.setSelectedIndex(1);
-        System.out.println( lsNombres.getSelectedIndex());
-        System.out.println( lsNombres.getSelectedValue());
+        
+        lsNombres.addListSelectionListener(new ListSelectionListener() {
+            @Override
+            public void valueChanged(javax.swing.event.ListSelectionEvent e) {
+                System.out.println( lsNombres.getSelectedIndex());
+                System.out.println( lsNombres.getSelectedValue() );
+            }
+        });
 
         return f;
     }
@@ -53,6 +72,14 @@ public class ControlesConModelo {
         cbm.addElement( new Persona(10,"Andres" ) );
         
         JComboBox<Persona> cboNombres = new JComboBox<>(cbm);
+
+        cboNombres.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(java.awt.event.ActionEvent e) {
+                System.out.println( cboNombres.getSelectedIndex());
+                System.out.println( cboNombres.getSelectedItem() );
+            }
+        });
 
         f.add(cboNombres);
         f.pack();

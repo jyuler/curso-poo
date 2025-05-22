@@ -1,28 +1,18 @@
 
-import java.awt.EventQueue;
-import java.util.ResourceBundle.Control;
-
-import javax.swing.BoxLayout;
-import javax.swing.JButton;
 import javax.swing.JFrame;
-import javax.swing.JLabel;
-import javax.swing.JPanel;
-import javax.swing.JTextField;
-import javax.swing.SpringLayout;
 
 import ean.poo.swing.controles.ControlesBasicos;
-import ean.poo.swing.controles.Layouts;
+import ean.poo.swing.controles.ControlesConModelo;
 
 public class App {
     
     public static void main(String[] args) throws Exception {
-        primeraVentana().setVisible(true);
         // ControlesBasicos.etiquetaHolaMundo().setVisible(true);
         // ControlesBasicos.etiquetayNombre().setVisible(true);
         // ControlesBasicos.nombreConBotones().setVisible(true);
         // ControlesBasicos.checkboxes().setVisible(true);
         // ControlesBasicos.radioButtons().setVisible(true);
-        ControlesBasicos.botonesConEventos().setVisible(true);
+        // ControlesBasicos.botonesConEventos().setVisible(true);
 
         // FlowLayout
         // Layouts.flowlayout(FlowLayout.LEFT).setVisible(true);
@@ -50,7 +40,7 @@ public class App {
 
 
         
-        // ControlesConModelo.lista().setVisible(true);
+        ControlesConModelo.lista().setVisible(true);
         // ControlesConModelo.combobox().setVisible(true);
         // ControlesConModelo.comboboxConModel().setVisible(true);
     }
