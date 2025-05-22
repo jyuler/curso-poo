@@ -27,17 +27,19 @@ public class ParseadorDatos {
      *                   de las ventas. Cada línea representa una venta y los campos están
      *                   separados por comas. Los campos son: número de vendedor, fecha de venta
      *                   y valor de la venta.
-     * @return Un arreglo de objetos Vendedor con las ventas registradas.
+     * @return Un Set de objetos Vendedor con las ventas registradas.
      */
-    public static Map<Integer, Vendedor> parseDesdeArchivos(String rutaArchivoVendedores, String rutaArchivoVentas) throws FileNotFoundException{
-        var arrVendedores = parseVendedoresDesdeArchivo(rutaArchivoVendedores);
-        parseVentasDesdeArchivo(rutaArchivoVentas, arrVendedores);        
-        return arrVendedores;
+    public static Map<Integer,Vendedor> parseDesdeArchivos(String rutaArchivoVendedores, String rutaArchivoVentas) throws FileNotFoundException{
+        File fvend = new File(rutaArchivoVendedores);
+        File fvent = new File(rutaArchivoVentas);
+        Map<Integer,Vendedor> vendedores = parseArchivoVendedores(fvend);
+        parseArchivoVentas( fvent, vendedores);
+        return vendedores;
     }
 
-    private static Map<Integer, Vendedor> parseVendedoresDesdeArchivo(String rutaArchivoVendedores) throws FileNotFoundException {
-        File fvend = new File(rutaArchivoVendedores);
-        Map<Integer, Vendedor> mapVendedores = new HashMap<>();
+    private static  Map<Integer,Vendedor> parseArchivoVendedores(File fvend) throws FileNotFoundException  {
+        Map<Integer,Vendedor> vendedores = new HashMap<>();
+
         try ( 
             Scanner scn = new Scanner( fvend );
         ) {
@@ -64,19 +66,21 @@ public class ParseadorDatos {
                     System.out.printf("Vendedor %d con fecha de ingreso incorrecta: '%s'\n", nv, campos[3]);
                     continue;
                 }
-                Vendedor nuevo = new Vendedor(nv, nombre, apellido, fecha);
-                Vendedor anterior = mapVendedores.put(nv, nuevo);
+                var nuevoVendedor = new Vendedor(nv, nombre, apellido, fecha);
+                var anterior = vendedores.put( nv,  nuevoVendedor );
                 if ( anterior != null ) {
-                    System.out.printf("Vendedor repetido. Anterior %s, Nuevo: %s\n", anterior, nuevo);;
+                    System.err.printf("Vendedor duplicado: '%d:%s %s' y '%d:%s %s'\n", 
+                    anterior.getNumeroVendedor(), anterior.getNombre(), anterior.getApellido(), 
+                    nv, nuevoVendedor.getNombre(), nuevoVendedor.getApellido());
                 }
             }
         }
-        return mapVendedores;
+        return vendedores;
     }
 
-    private static void parseVentasDesdeArchivo(String rutaArchivoVentas, Map<Integer, Vendedor> mapVendedores) throws FileNotFoundException {
-        File fvent = new File(rutaArchivoVentas);
-        try (
+    private static void parseArchivoVentas(File fvent, Map<Integer,Vendedor> vendedores) throws FileNotFoundException {
+
+        try ( 
             Scanner scn = new Scanner( fvent );
         ) {
             while (scn.hasNextLine()) {
@@ -93,7 +97,7 @@ public class ParseadorDatos {
                     System.err.printf("Numero de vendedor no valido: '%s'\n", campos[0]);
                     continue;
                 }
-                Vendedor v = mapVendedores.get(nv);
+                Vendedor v = vendedores.get(nv);
                 if (v != null) {
                     LocalDate fechaVenta;
                     try {
@@ -114,6 +118,4 @@ public class ParseadorDatos {
             }
         } 
     }
-
-
 }

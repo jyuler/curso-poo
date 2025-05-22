@@ -49,8 +49,7 @@ public class CalculadoraComisiones {
     public static int calcularComisionVentas( Vendedor vendedor, LocalDate fechaInicio, LocalDate fechaFin ) {
         if ( vendedor == null ) throw new IllegalArgumentException("El vendedor no puede ser nulo");
         float comision = 0;
-        Collection<Venta> ventas = vendedor.getVentas();
-        for (Venta venta : ventas) {
+        for (Venta venta : vendedor.getVentas()) {
             if ( venta == null ) continue;
             if (venta.fecha().isBefore(fechaInicio) || venta.fecha().isAfter(fechaFin) ) continue;    
             comision += CalculadoraComisiones.calcularComision(vendedor.getFechaIngreso(), venta.fecha(), venta.valor() ).comision();

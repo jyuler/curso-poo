@@ -1,7 +1,7 @@
 package co.edu.ean.poo.ventas;
 
 import java.time.LocalDate;
-import java.util.LinkedList;
+import java.util.ArrayList;
 import java.util.List;
 
 public class Vendedor {
@@ -9,7 +9,7 @@ public class Vendedor {
     private String nombre;
     private String apellido;
     private LocalDate fechaIngreso;
-    private List<Venta> ventas = new LinkedList<>();
+    private List<Venta> ventas = new ArrayList<>(100);
 
     public Vendedor(int nv, String nm, String ap, LocalDate f ) {
         numeroVendedor = nv;
@@ -17,6 +17,7 @@ public class Vendedor {
         apellido = ap;
         fechaIngreso = f;
     }
+    public Vendedor(){}
 
     public int getNumeroVendedor() {
         return numeroVendedor;
@@ -43,9 +44,9 @@ public class Vendedor {
      * @return true si la venta fue registrada, en caso contrario false
      */
     public boolean registrarVenta(Venta v) {
-        if ( v.fecha().isBefore( fechaIngreso ) ) return false;
+        if ( v == null || v.fecha().isBefore( fechaIngreso ) ) return false;
         ventas.add(v);
-        return false;
+        return true;
     }
 
     public void registrarVenta(LocalDate fechaVenta, int valor) {
@@ -54,6 +55,11 @@ public class Vendedor {
 
     public List<Venta> getVentas() {
         return ventas;
+    }
+
+    @Override
+    public boolean equals( Object otro ) {
+        return otro instanceof Vendedor ov && numeroVendedor == ov.numeroVendedor;
     }
 
     @Override

@@ -2,6 +2,7 @@ package co.edu.ean.poo.ventas;
 
 import java.time.LocalDate;
 import java.util.Collection;
+import java.util.List;
 
 /**
  * La clase CalculadoraVentas contiene métodos para calcular el total de ventas de un vendedor, 
@@ -10,9 +11,10 @@ import java.util.Collection;
 public class CalculadoraVentas {
     public static int totalVentasVendedor( Vendedor vendedor,  LocalDate fechaInicio, LocalDate fechaFin ) {
         if ( vendedor == null ) throw new IllegalArgumentException("El vendedor no puede ser nulo");
-        Collection<Venta> ventas = vendedor.getVentas();
+        List<Venta> ventas = vendedor.getVentas();
         int totalVentas = 0;
-        for (Venta venta : ventas) {
+        for (int i = 0; i < ventas.size(); i++) {
+            Venta venta = ventas.get(i);
             if ( venta == null ) continue;
             if (venta.fecha().compareTo(fechaInicio) >= 0 && venta.fecha().compareTo(fechaFin) <= 0) 
                 totalVentas += venta.valor();
